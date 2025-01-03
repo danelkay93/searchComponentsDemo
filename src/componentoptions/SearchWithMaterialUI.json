@@ -4,24 +4,26 @@
         "freeSolo": true,
         "disableClearable": true,
         "options": [],
-        "renderInput": "(params) => <TextField {...params} variant='outlined' />"
+        "renderInput": "(params) => <TextField {...params} variant='outlined' />",
+        "popupIcon": null,
+        "clearIcon": null
     },
-    "reactIcons": {
-        "icon": "FaSearch",
-        "size": 16,
-        "className": "search-icon"
+    "materialUITextField": {
+        "variant": "outlined",
+        "fullWidth": true,
+        "InputProps": {
+            "startAdornment": "<InputAdornment position='start'><FaSearch /></InputAdornment>"
+        }
     },
     "materialUiChip": {
         "variant": "outlined",
         "size": "small",
-        "onDelete": true
+        "onDelete": true,
+        "className": "filter-chip"
     },
-    "turnstone": {
-        "debounceWait": 300,
-        "maxItems": 10,
-        "styles": {
-            "input": "search-input",
-            "listbox": "hidden"
-        }
+    "inlineSuggestion": {
+        "className": "inline-suggestion",
+        "fadedTextClass": "faded-suggestion",
+        "showArrowKeys": true
     }
 }

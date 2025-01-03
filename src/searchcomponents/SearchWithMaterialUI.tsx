@@ -1,7 +1,8 @@
 import React from 'react';
-import { Autocomplete, TextField, Chip } from '@mui/material';
+import { Autocomplete, TextField, Chip, InputAdornment } from '@mui/material';
 import { FaSearch } from 'react-icons/fa';
-import { Turnstone } from 'turnstone';
+import { useCombobox } from 'downshift';
+import debounce from 'lodash/debounce';
 
 interface SearchWithMaterialUIProps {
     defaultFields: string[];
@@ -18,11 +19,17 @@ const SearchWithMaterialUI: React.FC<SearchWithMaterialUIProps> = ({
     const [searchValue, setSearchValue] = React.useState('');
     const [suggestions, setSuggestions] = React.useState<string[]>([]);
 
-    // Handle search input changes with debounce
-    const handleSearchChange = React.useCallback((value: string) => {
-        setSearchValue(value);
-        // Implement search logic here
-    }, []);
+    const debouncedSearch = React.useCallback(
+        debounce((value: string) => {
+            setSearchValue(value);
+            // Filter suggestions based on input
+            const newSuggestions = filterOptions.filter(option => 
+                option.toLowerCase().includes(value.toLowerCase())
+            );
+            setSuggestions(newSuggestions);
+        }, debounceMs),
+        [filterOptions]
+    );
 
     return (
         <div className="search-container">
@@ -60,16 +67,16 @@ const SearchWithMaterialUI: React.FC<SearchWithMaterialUIProps> = ({
                     )}
                 />
             </div>
-            <Turnstone
-                debounceWait={debounceMs}
-                maxItems={10}
-                styles={{
-                    input: 'search-input',
-                    listbox: 'hidden'
-                }}
-                value={searchValue}
-                onChange={handleSearchChange}
-            />
+            <div className="inline-suggestion">
+                {searchValue && suggestions[0] && (
+                    <span className="suggestion-text">
+                        {searchValue}
+                        <span className="faded-suggestion">
+                            {suggestions[0].slice(searchValue.length)}
+                        </span>
+                    </span>
+                )}
+            </div>
         </div>
     );
 };
