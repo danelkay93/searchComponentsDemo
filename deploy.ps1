@@ -10,13 +10,13 @@ git commit -m "Initial commit for SPA search demo deployment"
 git remote add origin $RemoteUrl
 git push -u origin main
 
-npm init -y
-npm install react react-dom @mui/material react-icons react-select downshift react-tagsinput gh-pages --save-dev
+pnpm init
+pnpm add -D react react-dom @mui/material react-icons react-select downshift react-tagsinput gh-pages
 
 (Get-Content package.json) -replace '"scripts": {', '"scripts": {
-    "predeploy": "npm run build",
+    "predeploy": "pnpm run build",
     "deploy": "gh-pages -d build",' | Set-Content package.json
 
-npm run deploy
+pnpm run deploy
 
 Write-Host "Deployment complete. Visit https://$GitHubUsername.github.io/$RepoName"
