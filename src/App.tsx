@@ -1,35 +1,50 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React from 'react';
+import searchConfig from './searchConfig.json';
+import './App.css';
 
-function App() {
-  const [count, setCount] = useState(0)
+// Dynamically import all search components
+const searchComponents = import.meta.glob('./searchcomponents/*.tsx');
 
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+interface SearchComponentProps {
+    defaultFields: string[];
+    filterOptions: string[];
+    debounceMs: number;
 }
 
-export default App
+function App() {
+    const [components, setComponents] = React.useState<{
+        [key: string]: React.ComponentType<SearchComponentProps>
+    }>({});
+
+    React.useEffect(() => {
+        // Load all search components
+        Promise.all(
+            Object.entries(searchComponents).map(async ([path, importFn]) => {
+                const component = await importFn();
+                const name = path.split('/').pop()?.replace('.tsx', '') || '';
+                return [name, component.default];
+            })
+        ).then(loadedComponents => {
+            setComponents(Object.fromEntries(loadedComponents));
+        });
+    }, []);
+
+    return (
+        <div className="demo-page">
+            <h1>Search Component Demo</h1>
+            {Object.entries(components).map(([name, Component]) => (
+                <div key={name} className="component-section">
+                    <h2>{name.replace(/([A-Z])/g, ' $1').trim()}</h2>
+                    <Component 
+                        defaultFields={searchConfig.defaultFields}
+                        filterOptions={searchConfig.filterOptions}
+                        debounceMs={searchConfig.debounceMs}
+                    />
+                    <hr />
+                </div>
+            ))}
+        </div>
+    );
+}
+
+export default App;
