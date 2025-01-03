@@ -1,0 +1,4 @@
+{
+    "defaultFields": ["cardName"],
+    "filterOptions": ["cardName", "cardText", "flavorText", "cardBackText"]
+}

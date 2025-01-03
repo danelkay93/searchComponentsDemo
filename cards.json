@@ -1,0 +1,62 @@
+[
+    {
+        "cardName": "Arcane Blast",
+        "cardText": "Deal 3 damage to a target.",
+        "flavorText": "Harness the arcane.",
+        "cardBackText": "Mystic Arts"
+    },
+    {
+        "cardName": "Shield Wall",
+        "cardText": "Grant 5 armor to all allies.",
+        "flavorText": "Unbreakable defense.",
+        "cardBackText": "Fortress"
+    },
+    {
+        "cardName": "Healing Touch",
+        "cardText": "Restore 4 health to a target.",
+        "flavorText": "A gentle caress.",
+        "cardBackText": "Nature's Embrace"
+    },
+    {
+        "cardName": "Fireball",
+        "cardText": "Deal 6 damage to an enemy.",
+        "flavorText": "Feel the heat.",
+        "cardBackText": "Inferno"
+    },
+    {
+        "cardName": "Stealth Strike",
+        "cardText": "Deal 2 damage; cannot be countered.",
+        "flavorText": "Silent but deadly.",
+        "cardBackText": "Shadow"
+    },
+    {
+        "cardName": "Divine Shield",
+        "cardText": "Prevent the next damage dealt to this unit.",
+        "flavorText": "Blessed protection.",
+        "cardBackText": "Sanctuary"
+    },
+    {
+        "cardName": "Frost Nova",
+        "cardText": "Freeze all enemy units.",
+        "flavorText": "Chill out.",
+        "cardBackText": ""
+    },
+    {
+        "cardName": "Lightning Bolt",
+        "cardText": "Deal 4 damage.",
+        "flavorText": "Electrifying power.",
+        "cardBackText": ""
+    },
+    {
+        "cardName": "Earthquake",
+        "cardText": "Deal 5 damage to all units.",
+        "flavorText": "Tectonic shift.",
+        "cardBackText": "Earth's Fury"
+    },
+    {
+        "cardName": "Wind Gust",
+        "cardText": "Return target unit to its owner's hand.",
+        "flavorText": "A breath of wind.",
+        "cardBackText": "Zephyr"
+    }
+]
