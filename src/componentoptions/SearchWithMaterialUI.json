@@ -1,0 +1,27 @@
+{
+    "materialUIAutocomplete": {
+        "multiple": true,
+        "freeSolo": true,
+        "disableClearable": true,
+        "options": [],
+        "renderInput": "(params) => <TextField {...params} variant='outlined' />"
+    },
+    "reactIcons": {
+        "icon": "FaSearch",
+        "size": 16,
+        "className": "search-icon"
+    },
+    "materialUiChip": {
+        "variant": "outlined",
+        "size": "small",
+        "onDelete": true
+    },
+    "turnstone": {
+        "debounceWait": 300,
+        "maxItems": 10,
+        "styles": {
+            "input": "search-input",
+            "listbox": "hidden"
+        }
+    }
+}
