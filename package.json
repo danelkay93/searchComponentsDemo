@@ -10,14 +10,23 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.3",
+    "@emotion/styled": "^11.11.0",
+    "@mui/material": "^5.15.3",
     "@types/lodash": "^4.17.14",
+    "@types/react-autosuggest": "^10.1.10",
     "@types/react-bootstrap-typeahead": "^5.1.15",
     "@types/react-tagsinput": "^3.20.6",
+    "downshift": "^8.3.1",
     "lodash": "^4.17.21",
     "react": "^18.3.1",
+    "react-autosuggest": "^10.1.0",
     "react-bootstrap-typeahead": "^6.3.4",
     "react-dom": "^18.3.1",
-    "react-tagsinput": "^3.20.3"
+    "react-icons": "^4.12.0",
+    "react-select": "^5.8.0",
+    "react-tagsinput": "^3.20.3",
+    "turnstone": "^2.2.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.17.0",
