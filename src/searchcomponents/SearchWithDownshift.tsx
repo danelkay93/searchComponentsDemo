@@ -53,7 +53,7 @@ const SearchWithDownshift: React.FC<SearchWithDownshiftProps> = ({
         inputValue,
         items: suggestions,
         onInputValueChange: ({ inputValue }) => {
-            setSearchValue(inputValue || '');
+            setInputValue(inputValue || '');
         },
         stateReducer: (state, actionAndChanges) => {
             const { changes, type } = actionAndChanges;

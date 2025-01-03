@@ -59,6 +59,7 @@ const SearchWithTagsInput: React.FC<SearchWithTagsInputProps> = ({
                         }}
                         minLength={2}
                         highlightOnlyResult
+                        delay={debounceMs}
                         renderMenuItemChildren={(option) => (
                             <span className="suggestion-text">{option as string}</span>
                         )}

@@ -66,6 +66,10 @@ const SearchWithAutosuggest: React.FC<SearchWithAutosuggestProps> = ({
                             input: 'turnstone-input',
                             listbox: 'hidden'
                         }}
+                        listbox={{
+                            displayField: 'label',
+                            data: filterOptions.map(opt => ({ label: opt }))
+                        }}
                     />
                     {suggestions.length > 0 && value && (
                         <div className="inline-suggestion">

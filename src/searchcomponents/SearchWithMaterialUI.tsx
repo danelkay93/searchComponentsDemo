@@ -63,6 +63,7 @@ const SearchWithMaterialUI: React.FC<SearchWithMaterialUIProps> = ({
                             placeholder="Search cards..."
                             variant="outlined"
                             fullWidth
+                            onChange={(e) => debouncedSearch(e.target.value)}
                         />
                     )}
                 />

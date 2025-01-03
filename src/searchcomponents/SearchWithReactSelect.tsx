@@ -20,7 +20,7 @@ const SearchWithReactSelect: React.FC<SearchWithReactSelectProps> = ({
     const [suggestions, setSuggestions] = React.useState<string[]>([]);
     const [suggestionIndex, setSuggestionIndex] = React.useState(0);
 
-    const filterOptions = React.useCallback(
+    const filterOptionsList = React.useCallback(
         (inputValue: string) => {
             return filterOptions.filter(option =>
                 option.toLowerCase().includes(inputValue.toLowerCase())
