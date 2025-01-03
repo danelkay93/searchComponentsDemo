@@ -1,25 +1,33 @@
 {
     "downshift": {
-        "itemToString": "(item) => item?.cardName || ''",
         "stateReducer": "(state, changes) => ({ ...changes, isOpen: false })",
-        "selectedItem": null
+        "selectedItem": null,
+        "itemToString": "(item) => item || ''",
+        "onSelectedItemChange": "(changes) => console.log('selected item changed', changes.selectedItem)"
+    },
+    "multipleSelection": {
+        "initialSelectedItems": [],
+        "itemToString": "(item) => item || ''",
+        "onSelectedItemsChange": "(changes) => console.log('selected items changed', changes.selectedItems)"
     },
     "materialUiChip": {
         "variant": "outlined",
         "size": "small",
-        "onDelete": true
+        "onDelete": true,
+        "className": "filter-chip"
     },
     "reactIcons": {
-        "icon": "FaSearch",
-        "size": 16,
-        "className": "search-icon"
-    },
-    "turnstone": {
-        "debounceWait": 300,
-        "maxItems": 10,
-        "styles": {
-            "input": "search-input",
-            "listbox": "hidden"
+        "searchIcon": {
+            "size": 16,
+            "className": "search-icon"
+        },
+        "arrowIcons": {
+            "size": 12,
+            "className": "suggestion-arrow"
         }
+    },
+    "inlineSuggestion": {
+        "className": "inline-suggestion",
+        "fadedTextClass": "faded-suggestion"
     }
 }
