@@ -1,0 +1,25 @@
+{
+    "reactAutosuggest": {
+        "multiSection": false,
+        "highlightFirstSuggestion": true,
+        "alwaysRenderSuggestions": false,
+        "focusInputOnSuggestionClick": true,
+        "theme": {
+            "container": "autosuggest-container",
+            "input": "autosuggest-input",
+            "suggestionsContainer": "suggestions-container",
+            "suggestionsList": "suggestions-list",
+            "suggestion": "suggestion"
+        }
+    },
+    "reactIcons": {
+        "icon": "FaSearch",
+        "size": 16,
+        "className": "search-icon"
+    },
+    "materialBadge": {
+        "color": "default",
+        "overlap": "rectangular",
+        "className": "field-badge"
+    }
+}
