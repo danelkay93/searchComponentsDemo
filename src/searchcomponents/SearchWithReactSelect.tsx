@@ -1,8 +1,8 @@
 import React from 'react';
 import Select from 'react-select';
-import { FaSearch } from 'react-icons/fa';
+import CreatableSelect from 'react-select/creatable';
+import { FaSearch, FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 import { Chip } from '@mui/material';
-import { Turnstone } from 'turnstone';
 
 interface SearchWithReactSelectProps {
     defaultFields: string[];
@@ -16,25 +16,54 @@ const SearchWithReactSelect: React.FC<SearchWithReactSelectProps> = ({
     debounceMs
 }) => {
     const [selectedFields, setSelectedFields] = React.useState<string[]>(defaultFields);
-    const [searchValue, setSearchValue] = React.useState('');
+    const [inputValue, setInputValue] = React.useState('');
     const [suggestions, setSuggestions] = React.useState<string[]>([]);
+    const [suggestionIndex, setSuggestionIndex] = React.useState(0);
 
-    const options = filterOptions.map(field => ({
-        value: field,
-        label: field
-    }));
+    const filterOptions = React.useCallback(
+        (inputValue: string) => {
+            return filterOptions.filter(option =>
+                option.toLowerCase().includes(inputValue.toLowerCase())
+            );
+        },
+        [filterOptions]
+    );
+
+    const options = React.useMemo(() => 
+        filterOptions.map(field => ({
+            value: field,
+            label: field
+        })),
+        [filterOptions]
+    );
+
+    const handleKeyDown = (event: React.KeyboardEvent) => {
+        if (event.key === 'ArrowLeft' && suggestionIndex > 0) {
+            setSuggestionIndex(i => i - 1);
+        } else if (event.key === 'ArrowRight' && suggestionIndex < suggestions.length - 1) {
+            setSuggestionIndex(i => i + 1);
+        }
+    };
 
     return (
         <div className="search-container">
-            <div className="search-input-wrapper">
-                <FaSearch className="search-icon" size={16} />
-                <Select
+            <div className="search-input-wrapper" onKeyDown={handleKeyDown}>
+                <div className="search-icon-wrapper">
+                    <FaSearch className="search-icon" size={16} />
+                </div>
+                <CreatableSelect
                     isMulti
                     isClearable
                     isSearchable
                     placeholder="Search cards..."
                     options={options}
                     value={options.filter(opt => selectedFields.includes(opt.value))}
+                    inputValue={inputValue}
+                    onInputChange={(newValue) => {
+                        setInputValue(newValue);
+                        const filtered = filterOptions(newValue);
+                        setSuggestions(filtered);
+                    }}
                     onChange={(newValue) => {
                         setSelectedFields(newValue.map(v => v.value));
                     }}
@@ -46,20 +75,23 @@ const SearchWithReactSelect: React.FC<SearchWithReactSelectProps> = ({
                                 variant="outlined"
                                 size="small"
                             />
-                        )
+                        ),
+                        IndicatorSeparator: null
                     }}
                 />
+                {suggestions.length > 0 && (
+                    <div className="inline-suggestion">
+                        <FaArrowLeft className="suggestion-arrow" />
+                        <span className="suggestion-text">
+                            {inputValue}
+                            <span className="faded-suggestion">
+                                {suggestions[suggestionIndex].slice(inputValue.length)}
+                            </span>
+                        </span>
+                        <FaArrowRight className="suggestion-arrow" />
+                    </div>
+                )}
             </div>
-            <Turnstone
-                debounceWait={debounceMs}
-                maxItems={10}
-                styles={{
-                    input: 'search-input',
-                    listbox: 'hidden'
-                }}
-                value={searchValue}
-                onChange={(value) => setSearchValue(value)}
-            />
         </div>
     );
 };

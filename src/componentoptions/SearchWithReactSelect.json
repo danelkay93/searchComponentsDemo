@@ -4,24 +4,25 @@
         "isClearable": true,
         "isSearchable": true,
         "placeholder": "Search cards...",
-        "noOptionsMessage": "No matching cards found"
-    },
-    "reactIcons": {
-        "icon": "FaSearch",
-        "size": 16,
-        "className": "search-icon"
+        "noOptionsMessage": "No matching cards found",
+        "components": {
+            "IndicatorSeparator": null,
+            "DropdownIndicator": null
+        },
+        "styles": {
+            "control": "(base) => ({ ...base, borderRadius: '4px' })",
+            "multiValue": "(base) => ({ ...base, backgroundColor: 'transparent' })"
+        }
     },
     "materialUiChip": {
         "variant": "outlined",
         "size": "small",
-        "onDelete": true
+        "onDelete": true,
+        "className": "filter-chip"
     },
-    "turnstone": {
-        "debounceWait": 300,
-        "maxItems": 10,
-        "styles": {
-            "input": "search-input",
-            "listbox": "hidden"
-        }
+    "inlineSuggestion": {
+        "className": "inline-suggestion",
+        "fadedTextClass": "faded-suggestion",
+        "arrowClass": "suggestion-arrow"
     }
 }
