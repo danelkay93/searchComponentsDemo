@@ -2,7 +2,7 @@ import React from 'react';
 import Autosuggest from 'react-autosuggest';
 import { FaSearch, FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 import { Badge } from '@mui/material';
-import Turnstone from 'turnstone';
+import { Turnstone, TurnstoneOptions } from 'turnstone';
 
 interface SearchWithAutosuggestProps {
     defaultFields: string[];
@@ -56,7 +56,7 @@ const SearchWithAutosuggest: React.FC<SearchWithAutosuggestProps> = ({
                     </Badge>
                 ))}
                 <div className="turnstone-wrapper" onKeyDown={handleKeyDown}>
-                    <Turnstone
+                    <Turnstone<TurnstoneOptions>
                         id="search"
                         value={value}
                         onChange={handleTurnstoneChange}
@@ -68,8 +68,11 @@ const SearchWithAutosuggest: React.FC<SearchWithAutosuggestProps> = ({
                         }}
                         listbox={{
                             displayField: 'label',
-                            data: filterOptions.map(opt => ({ label: opt }))
+                            data: filterOptions.map(opt => ({ label: opt })),
+                            searchType: 'contains'
                         }}
+                        noItemsMessage=""
+                        maxItems={0}
                     />
                     {suggestions.length > 0 && value && (
                         <div className="inline-suggestion">
