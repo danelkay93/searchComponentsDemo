@@ -1,24 +1,48 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import SearchWithDownshift from './SearchWithDownshift';
-import SearchWithTagsInput from './SearchWithTagsInput';
+import searchConfig from './searchConfig.json';
+
+// Dynamically import all search components
+const searchComponents = import.meta.glob('./searchcomponents/*.tsx');
+
+interface SearchComponentProps {
+    defaultFields: string[];
+    filterOptions: string[];
+    debounceMs: number;
+}
 
 const DemoPage: React.FC = () => {
+    const [components, setComponents] = React.useState<{
+        [key: string]: React.ComponentType<SearchComponentProps>
+    }>({});
+
+    React.useEffect(() => {
+        // Load all search components
+        Promise.all(
+            Object.entries(searchComponents).map(async ([path, importFn]) => {
+                const component = await importFn();
+                const name = path.split('/').pop()?.replace('.tsx', '') || '';
+                return [name, component.default];
+            })
+        ).then(loadedComponents => {
+            setComponents(Object.fromEntries(loadedComponents));
+        });
+    }, []);
+
     return (
-        <div>
-            <h2>Search With Downshift</h2>
-            <SearchWithDownshift 
-                useSearchIcon={true} 
-                enableChips={true} 
-                debounce={300} 
-            />
-            <hr />
-            <h2>Search With Tags Input</h2>
-            <SearchWithTagsInput 
-                useSearchIcon={true} 
-                enableChips={true} 
-                debounce={300} 
-            />
+        <div className="demo-page">
+            <h1>Search Component Demo</h1>
+            {Object.entries(components).map(([name, Component]) => (
+                <div key={name} className="component-section">
+                    <h2>{name.replace(/([A-Z])/g, ' $1').trim()}</h2>
+                    <Component 
+                        defaultFields={searchConfig.defaultFields}
+                        filterOptions={searchConfig.filterOptions}
+                        debounceMs={searchConfig.debounceMs}
+                    />
+                    <hr />
+                </div>
+            ))}
         </div>
     );
 };
