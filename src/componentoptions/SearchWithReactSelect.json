@@ -1,0 +1,27 @@
+{
+    "reactSelect": {
+        "isMulti": true,
+        "isClearable": true,
+        "isSearchable": true,
+        "placeholder": "Search cards...",
+        "noOptionsMessage": "No matching cards found"
+    },
+    "reactIcons": {
+        "icon": "FaSearch",
+        "size": 16,
+        "className": "search-icon"
+    },
+    "materialUiChip": {
+        "variant": "outlined",
+        "size": "small",
+        "onDelete": true
+    },
+    "turnstone": {
+        "debounceWait": 300,
+        "maxItems": 10,
+        "styles": {
+            "input": "search-input",
+            "listbox": "hidden"
+        }
+    }
+}
