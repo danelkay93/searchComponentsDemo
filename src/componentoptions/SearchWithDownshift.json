@@ -1,0 +1,25 @@
+{
+    "downshift": {
+        "itemToString": "(item) => item?.cardName || ''",
+        "stateReducer": "(state, changes) => ({ ...changes, isOpen: false })",
+        "selectedItem": null
+    },
+    "materialUiChip": {
+        "variant": "outlined",
+        "size": "small",
+        "onDelete": true
+    },
+    "reactIcons": {
+        "icon": "FaSearch",
+        "size": 16,
+        "className": "search-icon"
+    },
+    "turnstone": {
+        "debounceWait": 300,
+        "maxItems": 10,
+        "styles": {
+            "input": "search-input",
+            "listbox": "hidden"
+        }
+    }
+}
