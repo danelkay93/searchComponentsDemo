@@ -1,25 +1,30 @@
 {
-    "reactAutosuggest": {
-        "multiSection": false,
-        "highlightFirstSuggestion": true,
-        "alwaysRenderSuggestions": false,
-        "focusInputOnSuggestionClick": true,
-        "theme": {
-            "container": "autosuggest-container",
-            "input": "autosuggest-input",
-            "suggestionsContainer": "suggestions-container",
-            "suggestionsList": "suggestions-list",
-            "suggestion": "suggestion"
+    "turnstone": {
+        "debounceWait": 300,
+        "maxItems": 10,
+        "styles": {
+            "input": "turnstone-input",
+            "listbox": "hidden"
         }
     },
     "reactIcons": {
-        "icon": "FaSearch",
-        "size": 16,
-        "className": "search-icon"
+        "searchIcon": {
+            "icon": "FaSearch",
+            "size": 16,
+            "className": "search-icon"
+        },
+        "arrowIcons": {
+            "size": 12,
+            "className": "suggestion-arrow"
+        }
     },
     "materialBadge": {
         "color": "default",
         "overlap": "rectangular",
         "className": "field-badge"
+    },
+    "inlineSuggestion": {
+        "className": "inline-suggestion",
+        "fadedTextClass": "faded-suggestion"
     }
 }

@@ -1,8 +1,8 @@
 import React from 'react';
 import Autosuggest from 'react-autosuggest';
-import { FaSearch } from 'react-icons/fa';
+import { FaSearch, FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 import { Badge } from '@mui/material';
-import debounce from 'lodash/debounce';
+import { Turnstone } from 'turnstone';
 
 interface SearchWithAutosuggestProps {
     defaultFields: string[];
@@ -19,37 +19,27 @@ const SearchWithAutosuggest: React.FC<SearchWithAutosuggestProps> = ({
     const [value, setValue] = React.useState('');
     const [suggestions, setSuggestions] = React.useState<string[]>([]);
 
-    const getSuggestions = (inputValue: string) => {
-        const inputLength = inputValue.length;
-        return inputLength === 0 ? [] : filterOptions.filter(option =>
-            option.toLowerCase().slice(0, inputLength) === inputValue.toLowerCase()
-        );
+    const handleTurnstoneChange = (value: string) => {
+        setValue(value);
+        if (value.length > 0) {
+            const matches = filterOptions.filter(option =>
+                option.toLowerCase().includes(value.toLowerCase())
+            );
+            setSuggestions(matches);
+        } else {
+            setSuggestions([]);
+        }
     };
 
-    const debouncedLoadSuggestions = React.useCallback(
-        debounce((value: string) => {
-            setSuggestions(getSuggestions(value));
-        }, debounceMs),
-        []
-    );
+    const [suggestionIndex, setSuggestionIndex] = React.useState(0);
 
-    const onChange = (_: any, { newValue }: { newValue: string }) => {
-        setValue(newValue);
+    const handleKeyDown = (event: React.KeyboardEvent) => {
+        if (event.key === 'ArrowLeft' && suggestionIndex > 0) {
+            setSuggestionIndex(i => i - 1);
+        } else if (event.key === 'ArrowRight' && suggestionIndex < suggestions.length - 1) {
+            setSuggestionIndex(i => i + 1);
+        }
     };
-
-    const onSuggestionsFetchRequested = ({ value }: { value: string }) => {
-        debouncedLoadSuggestions(value);
-    };
-
-    const onSuggestionsClearRequested = () => {
-        setSuggestions([]);
-    };
-
-    const renderSuggestion = (suggestion: string) => (
-        <div className="suggestion-inline">
-            {suggestion}
-        </div>
-    );
 
     return (
         <div className="search-container">
@@ -65,26 +55,31 @@ const SearchWithAutosuggest: React.FC<SearchWithAutosuggestProps> = ({
                         <span className="field-badge">{field}</span>
                     </Badge>
                 ))}
-                <Autosuggest
-                    suggestions={suggestions}
-                    onSuggestionsFetchRequested={onSuggestionsFetchRequested}
-                    onSuggestionsClearRequested={onSuggestionsClearRequested}
-                    getSuggestionValue={(suggestion) => suggestion}
-                    renderSuggestion={renderSuggestion}
-                    inputProps={{
-                        placeholder: 'Search cards...',
-                        value,
-                        onChange,
-                        className: 'autosuggest-input'
-                    }}
-                    theme={{
-                        container: 'autosuggest-container',
-                        input: 'autosuggest-input',
-                        suggestionsContainer: 'suggestions-container',
-                        suggestionsList: 'suggestions-list',
-                        suggestion: 'suggestion'
-                    }}
-                />
+                <div className="turnstone-wrapper" onKeyDown={handleKeyDown}>
+                    <Turnstone
+                        id="search"
+                        value={value}
+                        onChange={handleTurnstoneChange}
+                        debounceWait={debounceMs}
+                        placeholder="Search cards..."
+                        styles={{
+                            input: 'turnstone-input',
+                            listbox: 'hidden'
+                        }}
+                    />
+                    {suggestions.length > 0 && value && (
+                        <div className="inline-suggestion">
+                            <FaArrowLeft className="suggestion-arrow" />
+                            <span className="suggestion-text">
+                                {value}
+                                <span className="faded-suggestion">
+                                    {suggestions[suggestionIndex].slice(value.length)}
+                                </span>
+                            </span>
+                            <FaArrowRight className="suggestion-arrow" />
+                        </div>
+                    )}
+                </div>
             </div>
         </div>
     );
