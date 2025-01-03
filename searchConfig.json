@@ -1,4 +1,5 @@
 {
     "defaultFields": ["cardName"],
-    "filterOptions": ["cardName", "cardText", "flavorText", "cardBackText"]
+    "filterOptions": ["cardName", "cardText", "flavorText", "cardBackText"],
+    "debounceMs": 300
 }

@@ -1,5 +1,28 @@
 {
-    "useSearchIcon": true,
-    "enableChips": true,
-    "debounce": 300
+    "reactTagsInput": {
+        "className": "search-tags-input",
+        "focusedClassName": "is-focused",
+        "tagProps": {
+            "className": "search-tag",
+            "classNameRemove": "search-tag-remove"
+        }
+    },
+    "reactIcons": {
+        "icon": "FaSearch", 
+        "size": 16,
+        "className": "search-icon"
+    },
+    "typeahead": {
+        "options": {
+            "minLength": 2,
+            "highlight": true,
+            "hint": true
+        },
+        "dropdownVisible": false
+    },
+    "materialUiChip": {
+        "variant": "outlined",
+        "size": "small",
+        "onDelete": true
+    }
 }
