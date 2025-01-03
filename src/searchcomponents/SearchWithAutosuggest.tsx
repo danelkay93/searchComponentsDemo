@@ -2,7 +2,7 @@ import React from 'react';
 import Autosuggest from 'react-autosuggest';
 import { FaSearch, FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 import { Badge } from '@mui/material';
-import { Turnstone } from 'turnstone';
+import Turnstone from 'turnstone';
 
 interface SearchWithAutosuggestProps {
     defaultFields: string[];
